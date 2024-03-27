@@ -5,10 +5,16 @@ const renderItems = (data) => {
 
 	// Loop through each item in the data array
 	data.forEach((item) => {
-		// Make a “template literal” as we have before, inserting your data
+		let conditionalClass = '' // Set an empty class variable
+
+		if (!item.alsoWasWriter) { // Conditional if this is `false` (“not true”)
+			conditionalClass = 'faded' // Update the variable
+		}
+
+		// Make a “template literal” as we have before, inserting your data (and maybe the class)
 		let listItem =
 			`
-				<li>
+				<li class="${conditionalClass}">
 					<h2>${item.title}</h2>
 					<img src="${item.posterImage}">
 					<p>Released in <time>${item.year}</time></p>
@@ -19,15 +25,7 @@ const renderItems = (data) => {
 				</li>
 			`
 
-		// This magic will turn the “template literal” into proper DOM nodes (…don’t worry about it!)
-		listItem = new DOMParser().parseFromString(listItem, "text/html").body.firstChild
-
-		// …which will let us treat it like it any other element in our page
-		if (!item.alsoWriter) { // Conditional logic, if this is `false`
-			listItem.classList.add('faded') // Add this class to the whole `li`
-		}
-
-		dataList.appendChild(listItem) // Then add the whole `li` into the `ul`
+		dataList.insertAdjacentHTML('beforeend', listItem) // Add it to the `ul`!
 	})
 }
 
