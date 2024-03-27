@@ -3,33 +3,27 @@ const renderItems = (data) => {
 	// The `ul` where the items will be inserted
 	const dataList = document.getElementById('data-list')
 
-
 	// Loop through each item in the data array
 	data.forEach((item) => {
-		const listItem = document.createElement('li') // Make an `li`
-
-		// You can make each element inside of that…
-		const itemTitle = document.createElement('h2') // Make an `h2`
-		itemTitle.innerHTML = item.title // Put the JSON title inside
-		listItem.appendChild(itemTitle) // And add it to the `li`!
-
-		const itemImage = document.createElement('img') // And an image
-		itemImage.src = item.posterImage // Set the `src` attribute from the JSON
-		listItem.appendChild(itemImage) // And add that too
-
-		// This can get annoying, so we can use “template literals” instead, as we have before
-		const itemDetails =
+		// Make a “template literal” as we have before, inserting your data
+		let listItem =
 			`
-				<p>Released in <time>${item.year}</time></p>
-				<p><em>${item.runTime}</em></p>
-				<a href="${item.imdbLink}">
-					<p>${item.imdbRating} / 10 →</p>
-				</a>
+				<li>
+					<h2>${item.title}</h2>
+					<img src="${item.posterImage}">
+					<p>Released in <time>${item.year}</time></p>
+					<p><em>${item.runTime}</em></p>
+					<a href="${item.imdbLink}">
+						<p>${item.imdbRating} / 10 →</p>
+					</a>
+				</li>
 			`
-		listItem.insertAdjacentHTML('beforeend', itemDetails) // Which can we then insert
 
-		// You can build logic from your specific data, too
-		if (!item.alsoWriter) { // If this is `false`
+		// This magic will turn the “template literal” into proper DOM nodes (…don’t worry about it!)
+		listItem = new DOMParser().parseFromString(listItem, "text/html").body.firstChild
+
+		// …which will let us treat it like it any other element in our page
+		if (!item.alsoWriter) { // Conditional logic, if this is `false`
 			listItem.classList.add('faded') // Add this class to the whole `li`
 		}
 
@@ -39,7 +33,7 @@ const renderItems = (data) => {
 
 
 
-// Fetch gets your JSON file…
+// Fetch gets your (local) JSON file…
 fetch('assets/data.json')
 	.then(response => response.json())
 	.then(data => {
