@@ -5,9 +5,8 @@ const renderItems = (data) => {
 
 
 	// Loop through each item in the data array
-	data.forEach(item => {
+	data.forEach((item) => {
 		const listItem = document.createElement('li') // Make an `li`
-
 
 		// You can make each element inside of that…
 		const itemTitle = document.createElement('h2') // Make an `h2`
@@ -18,8 +17,7 @@ const renderItems = (data) => {
 		itemImage.src = item.posterImage // Set the `src` attribute from the JSON
 		listItem.appendChild(itemImage) // And add that too
 
-
-		// This can get annoying, so we can use “template literals” instead
+		// This can get annoying, so we can use “template literals” instead, as we have before
 		const itemDetails =
 			`
 				<p>Released in <time>${item.year}</time></p>
