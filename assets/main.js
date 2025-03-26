@@ -26,6 +26,8 @@ const renderItems = (data) => {
 			`
 
 		dataList.insertAdjacentHTML('beforeend', listItem) // Add it to the `ul`!
+
+		// Don’t feel limited to `ul > li` for these—you can insert any DOM, anywhere!
 	})
 }
 
