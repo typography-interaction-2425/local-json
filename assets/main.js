@@ -4,14 +4,18 @@ const renderItems = (data) => {
 	const dataList = document.getElementById('data-list')
 
 	// Loop through each item in the data array
+	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
 	data.forEach((item) => {
 		let conditionalClass = '' // Set an empty class variable
 
-		if (!item.alsoWasWriter) { // Conditional if this is `false` (“not true”)
+		// Conditional if this is `false` (“not true”)
+		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else
+		if (!item.alsoWasWriter) {
 			conditionalClass = 'faded' // Update the variable
 		}
 
 		// Make a “template literal” as we have before, inserting your data (and maybe the class)
+		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
 		let listItem =
 			`
 				<li class="${conditionalClass}">
@@ -34,6 +38,7 @@ const renderItems = (data) => {
 
 
 // Fetch gets your (local) JSON file…
+// https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 fetch('assets/data.json')
 	.then(response => response.json())
 	.then(data => {
